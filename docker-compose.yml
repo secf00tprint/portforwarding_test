@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  outside:
+    container_name: "outside"
+    build: "./outside"
+    networks:
+        outside_network:
+           ipv4_address: 192.168.1.3
+  jumphost:
+    container_name: "jumphost"
+    build: "./jumphost"
+    networks:
+        outside_network:
+           ipv4_address: 192.168.1.5
+        inside_network:
+           ipv4_address: 192.168.2.5     
+  inside:
+    container_name: "inside"
+    build: "./inside"
+    networks:
+        inside_network:
+           ipv4_address: 192.168.2.50
+
+networks:
+    outside_network:
+        ipam:
+            config:
+              - subnet: 192.168.1.0/24
+    inside_network:
+        ipam:
+             config:
+              - subnet: 192.168.2.0/24
