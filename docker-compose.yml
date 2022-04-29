@@ -14,12 +14,20 @@ services:
            ipv4_address: 192.168.1.5
         inside_network:
            ipv4_address: 192.168.2.5     
-  inside:
-    container_name: "inside"
-    build: "./inside"
+    cap_add:
+     - NET_ADMIN
+  inside_server:
+    container_name: "inside_server"
+    build: "./inside_server"
     networks:
         inside_network:
            ipv4_address: 192.168.2.50
+  inside_client:  
+    container_name: "inside_client"
+    build: "./inside_client"
+    networks:
+        inside_network:
+           ipv4_address: 192.168.2.110 
 
 networks:
     outside_network:

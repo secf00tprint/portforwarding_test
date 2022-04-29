@@ -1,8 +1,14 @@
 FROM ubuntu:21.10
 RUN apt-get update -qq && \ 
 DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y openssh-server ssh sudo iputils-ping vim iproute2 curl unzip net-tools \
-# for plink \
+# for reverse/local portforwarding tunnel plink \
 wine-stable \
+# for local portforwarding socat \
+socat \
+# for local portforwarding rinetd \
+rinetd \
+# for local portforwarding iptables installs nf-tables
+iptables
 
 # Wine configuration for plink
 RUN dpkg --add-architecture i386 && apt-get update -qq && apt-get -y install wine32
@@ -13,5 +19,8 @@ RUN echo 'jumphost:jumphost' | chpasswd
 RUN service ssh start
 
 COPY start.sh /
+COPY tcp-proxy2.pl /
 RUN chmod u+x /start.sh
+# Set Prompt
+RUN echo 'PS1=jumphost":"$PS1' >> /root/.bashrc
 CMD ["/start.sh"]
