@@ -10,9 +10,6 @@ rinetd \
 # for local portforwarding iptables installs nf-tables
 iptables
 
-# Wine configuration for plink
-#RUN dpkg --add-architecture i386 && apt-get update -qq && apt-get -y install wine32
-
 # SSH Service
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 jumphost
 RUN echo 'jumphost:jumphost' | chpasswd

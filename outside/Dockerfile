@@ -4,9 +4,6 @@ DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y openssh-server ssh 
 # for plink 
 wine-stable wine64 
 
-# Wine configuration for plink
-#RUN dpkg --add-architecture i386 && apt-get update -qq && apt-get -y install wine32
-
 # SSH Service
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 outside
 RUN echo 'outside:outside' | chpasswd
