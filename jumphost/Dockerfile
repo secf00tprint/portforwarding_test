@@ -19,12 +19,13 @@ socat \
 # for local portforwarding rinetd \
 rinetd \
 # browser using jump server \
-xorg
+xorg xauth
 
 # Add user
 RUN useradd -rm -d /home/jumphost -s /bin/bash -g root -G sudo -u 1000 jumphost
 RUN echo 'jumphost:jumphost' | chpasswd
 # SSH Service
+COPY sshd/sshd_config /etc/ssh/sshd_config
 RUN service ssh start
 
 # for port forwarding perl example
